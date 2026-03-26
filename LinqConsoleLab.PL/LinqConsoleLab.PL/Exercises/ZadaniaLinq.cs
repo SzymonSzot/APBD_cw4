@@ -198,6 +198,12 @@ public sealed class ZadaniaLinq
     /// </summary>
     public IEnumerable<string> Zadanie10_DrugaStronaPrzedmiotow()
     {
+        var method = DaneUczelni.Przedmioty
+            .OrderBy(p => p.Nazwa)
+            .Chunk(2)
+            .ElementAt(1)
+            .Select(p => $"{p.Nazwa}, {p.Kategoria}");
+        return method;
         throw Niezaimplementowano(nameof(Zadanie10_DrugaStronaPrzedmiotow));
     }
 
