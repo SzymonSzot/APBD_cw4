@@ -1,3 +1,4 @@
+using System.Security.Cryptography;
 using LinqConsoleLab.PL.Data;
 using LinqConsoleLab.PL.Models;
 
@@ -219,6 +220,13 @@ public sealed class ZadaniaLinq
     /// </summary>
     public IEnumerable<string> Zadanie11_PolaczStudentowIZapisy()
     {
+        var method = DaneUczelni.Studenci.Join(
+            DaneUczelni.Zapisy,
+            s => s.Id,
+            z => z.Id,
+            (s, z) => $"{s.Imie}, {s.Nazwisko}, {z.DataZapisu}" );
+        
+        return method;
         throw Niezaimplementowano(nameof(Zadanie11_PolaczStudentowIZapisy));
     }
 
