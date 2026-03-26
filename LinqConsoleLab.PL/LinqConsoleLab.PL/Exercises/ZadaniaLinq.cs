@@ -123,6 +123,9 @@ public sealed class ZadaniaLinq
     /// </summary>
     public IEnumerable<string> Zadanie06_CzyWszyscyProwadzacyMajaKatedre()
     {
+        var method = DaneUczelni.Prowadzacy
+            .TrueForAll(s => !s.Katedra.Equals("")).ToString();
+        return [method];
         throw Niezaimplementowano(nameof(Zadanie06_CzyWszyscyProwadzacyMajaKatedre));
     }
 
