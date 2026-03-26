@@ -1,4 +1,5 @@
 using LinqConsoleLab.PL.Data;
+using LinqConsoleLab.PL.Models;
 
 namespace LinqConsoleLab.PL.Exercises;
 
@@ -16,7 +17,17 @@ public sealed class ZadaniaLinq
     /// </summary>
     public IEnumerable<string> Zadanie01_StudenciZWarszawy()
     {
-        throw Niezaimplementowano(nameof(Zadanie01_StudenciZWarszawy));
+        /*// Query syntax
+        IEnumerable<string> query = from s in DaneUczelni.Studenci
+            where s.Miasto.Equals("Warsaw")
+            select $"{s.NumerIndeksu}, {s.Imie}, {s.Nazwisko}, {s.Miasto}";
+        return query;*/
+        
+        // Method syntax
+        var method = DaneUczelni.Studenci
+            .Where(s => s.Miasto.Equals("Warsaw"))
+            .Select(s => $"{s.NumerIndeksu}, {s.Imie}, {s.Nazwisko}, {s.Miasto}");
+        return method;
     }
 
     /// <summary>
