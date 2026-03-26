@@ -60,6 +60,12 @@ public sealed class ZadaniaLinq
     /// </summary>
     public IEnumerable<string> Zadanie03_StudenciPosortowani()
     {
+        var method = DaneUczelni.Studenci
+            .OrderBy(s => s.Nazwisko)
+            .ThenBy(s => s.Imie)
+            .Select(s => $"{s.NumerIndeksu}, {s.Imie}, {s.Nazwisko}");
+        
+        return method;
         throw Niezaimplementowano(nameof(Zadanie03_StudenciPosortowani));
     }
 
@@ -75,6 +81,14 @@ public sealed class ZadaniaLinq
     /// </summary>
     public IEnumerable<string> Zadanie04_PierwszyPrzedmiotAnalityczny()
     {
+        var method = DaneUczelni.Przedmioty
+            .Find(s => s.Kategoria.Equals("Analytics"));
+        
+        if (method == null)
+            return Enumerable.Empty<string>();
+        
+        return [$"{method.Nazwa}, {method.DataStartu}"];
+            
         throw Niezaimplementowano(nameof(Zadanie04_PierwszyPrzedmiotAnalityczny));
     }
 
@@ -92,6 +106,8 @@ public sealed class ZadaniaLinq
     /// </summary>
     public IEnumerable<string> Zadanie05_CzyIstniejeNieaktywneZapisanie()
     {
+        var method = DaneUczelni.Zapisy.Exists(s => s.CzyAktywny).ToString();
+        return [method];
         throw Niezaimplementowano(nameof(Zadanie05_CzyIstniejeNieaktywneZapisanie));
     }
 
