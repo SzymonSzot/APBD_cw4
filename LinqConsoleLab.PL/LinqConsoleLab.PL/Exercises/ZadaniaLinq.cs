@@ -295,6 +295,16 @@ public sealed class ZadaniaLinq
     /// </summary>
     public IEnumerable<string> Zadanie14_SredniaOcenaNaPrzedmiot()
     {
+        var method = DaneUczelni.Zapisy.
+            Join(DaneUczelni.Przedmioty,
+            zapis => zapis.PrzedmiotId,
+            przedmiot => przedmiot.Id,
+            (z, p) => new {p.Nazwa, z.OcenaKoncowa})
+            .Where(r => r.OcenaKoncowa != null)
+            .GroupBy(r=> r.Nazwa)
+            .Select(r=>$"{r.Key}, {r.Average(zr => zr.OcenaKoncowa)}");
+        
+        return method;
         throw Niezaimplementowano(nameof(Zadanie14_SredniaOcenaNaPrzedmiot));
     }
 
