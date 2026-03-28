@@ -376,6 +376,17 @@ public sealed class ZadaniaLinq
     /// </summary>
     public IEnumerable<string> Wyzwanie01_StudenciZWiecejNizJednymAktywnymPrzedmiotem()
     {
+        var method = DaneUczelni.Zapisy.
+            Join(DaneUczelni.Studenci,
+                z => z.StudentId,
+                s => s.Id,
+                (z, s) => new {s.Imie, s.Nazwisko, z.CzyAktywny})
+            .Where(r => r.CzyAktywny)
+            .GroupBy(r=>$"{r.Imie} {r.Nazwisko}")
+            .Where(g=>g.Count()>1)
+            .Select(g=>$"{g.Key}, {g.Count(z => z.CzyAktywny)}");
+        
+        return method;
         throw Niezaimplementowano(nameof(Wyzwanie01_StudenciZWiecejNizJednymAktywnymPrzedmiotem));
     }
 
