@@ -321,6 +321,15 @@ public sealed class ZadaniaLinq
     /// </summary>
     public IEnumerable<string> Zadanie15_ProwadzacyILiczbaPrzedmiotow()
     {
+        var method = DaneUczelni.Prowadzacy.
+            Join(DaneUczelni.Przedmioty,
+                prow => prow.Id,
+                przedmiot => przedmiot.ProwadzacyId,
+                (prow, przedm) => prow)
+            .GroupBy(prowadzacy => $"{prowadzacy.Imie}, {prowadzacy.Nazwisko}")
+            .Select(r=>$"{r.Key}: {r.Count()}");
+        
+        return method;
         throw Niezaimplementowano(nameof(Zadanie15_ProwadzacyILiczbaPrzedmiotow));
     }
 
