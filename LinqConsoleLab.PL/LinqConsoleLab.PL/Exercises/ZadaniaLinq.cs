@@ -404,6 +404,16 @@ public sealed class ZadaniaLinq
     /// </summary>
     public IEnumerable<string> Wyzwanie02_PrzedmiotyStartujaceWKwietniuBezOcenKoncowych()
     {
+        var method = DaneUczelni.Zapisy.Join(DaneUczelni.Przedmioty,
+                z => z.PrzedmiotId,
+                p => p.Id,
+                (z, p) => new { p.Nazwa, z.OcenaKoncowa, p.DataStartu })
+            .Where(r => r.DataStartu.Year.Equals(2026))
+            .GroupBy(r => r.Nazwa)
+            .SkipWhile(g => g.All(z => z.OcenaKoncowa != null))
+            .Select(g => $"{g.Key}");
+            
+            return method;
         throw Niezaimplementowano(nameof(Wyzwanie02_PrzedmiotyStartujaceWKwietniuBezOcenKoncowych));
     }
 
